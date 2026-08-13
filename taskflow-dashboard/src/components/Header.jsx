@@ -1,4 +1,4 @@
-function Header() {
+function Header({ completedCount }) {
   return (
     <header className="header">
       <div className="header-content">
@@ -8,7 +8,7 @@ function Header() {
         </div>
 
         <div className="completed-count">
-          Completed: <strong>0</strong>
+          Completed: <strong>{completedCount}</strong>
         </div>
       </div>
     </header>
