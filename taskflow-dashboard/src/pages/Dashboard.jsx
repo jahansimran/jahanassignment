@@ -1,65 +1,80 @@
-import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
-import { getTasks } from "../services/taskService";
+import { useTasks } from "../context/TaskContext";
 
 function Dashboard() {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const completedCount = tasks.filter((task) => task.completed)?.length;
-
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        setLoading(true);
-
-        const data = await getTasks();
-
-        setTasks(data);
-      } catch (error) {
-        console.error("Failed to load tasks:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTasks();
-  }, []);
-
-  const handleToggleTask = (taskId) => {
-    setTasks((currentTasks) =>
-      currentTasks.map((task) =>
-        task.id === taskId
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
-  };
-
-  const handleDeleteTask = (taskId) => {
-    setTasks((currentTasks) =>
-      currentTasks.filter((task) => task.id !== taskId)
-    );
-  };
+  const {
+    tasks,
+    loading,
+    error,
+    submitting,
+    updatingTaskId,
+    deletingTaskId,
+    completedCount,
+    loadTasks,
+    handleAddTask,
+    mutationError,
+    handleToggleTask,
+    handleDeleteTask,
+  } = useTasks();
 
   return (
     <div className="app">
       <Header completedCount={completedCount} />
 
       <main className="dashboard">
-        <TaskForm />
+        <TaskForm
+          onAddTask={handleAddTask}
+          submitting={submitting}
+        />
 
-        {loading ? (
+        {mutationError && (
+          <div className="mutation-error">
+            {mutationError}
+          </div>
+        )}
+
+        {loading && (
           <div className="status-message">
             Loading tasks...
           </div>
-        ) : (
+        )}
+
+        {!loading && error && (
+          <div className="status-card error-card">
+            <h2>Something went wrong</h2>
+
+            <p>{error}</p>
+
+            <button
+              type="button"
+              className="retry-button"
+              onClick={loadTasks}
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && tasks.length === 0 && (
+          <div className="status-card empty-card">
+            <h2>No tasks found</h2>
+
+            <p>
+              You don't have any tasks yet. Add a task
+              to get started.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && tasks.length > 0 && (
           <TaskList
             tasks={tasks}
             onToggleTask={handleToggleTask}
             onDeleteTask={handleDeleteTask}
+            // updatingTaskId={updatingTaskId}
+            deletingTaskId={deletingTaskId}
           />
         )}
       </main>

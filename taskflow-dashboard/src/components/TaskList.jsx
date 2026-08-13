@@ -1,6 +1,7 @@
 import TaskItem from "./TaskItem";
 
-function TaskList({ tasks, onToggleTask, onDeleteTask }) {
+function TaskList({ tasks, onToggleTask, onDeleteTask, deletingTaskId, }) {
+
   return (
     <section className="task-list-section">
       <div className="section-heading">
@@ -11,10 +12,11 @@ function TaskList({ tasks, onToggleTask, onDeleteTask }) {
       <div className="task-list">
         {tasks.map((task) => (
           <TaskItem
-            key={task.id}
+            key={task.clientId}
             task={task}
             onToggleTask={onToggleTask}
             onDeleteTask={onDeleteTask}
+            deleting={deletingTaskId === task.clientId}
           />
         ))}
       </div>
