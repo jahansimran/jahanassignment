@@ -1,4 +1,27 @@
 import Header from "../components/Header";
+import TaskForm from "../components/TaskForm";
+import TaskList from "../components/TaskList";
+
+const sampleTasks = [
+  {
+    id: 1,
+    userId: 1,
+    title: "Complete project documentation",
+    completed: false,
+  },
+  {
+    id: 2,
+    userId: 1,
+    title: "Review project requirements",
+    completed: true,
+  },
+  {
+    id: 3,
+    userId: 2,
+    title: "Prepare project report",
+    completed: false,
+  },
+];
 
 function Dashboard() {
   return (
@@ -6,10 +29,9 @@ function Dashboard() {
       <Header />
 
       <main className="dashboard">
-        <section className="welcome-section">
-          <h1>TaskFlow</h1>
-          <p>Your tasks will appear here.</p>
-        </section>
+        <TaskForm />
+
+        <TaskList tasks={sampleTasks} />
       </main>
     </div>
   );

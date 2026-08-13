@@ -96,3 +96,170 @@
     font-size: 27px;
   }
 }
+
+/* Task Item, List, Form CSS */
+.task-form-section {
+  margin-bottom: 32px;
+}
+
+.task-form {
+  display: flex;
+  gap: 12px;
+}
+
+.task-form input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  outline: none;
+}
+
+.task-form input:focus {
+  border-color: #2563eb;
+}
+
+.task-form button {
+  height: 46px;
+  padding: 0 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background-color: #1d4ed8;
+}
+
+.task-list-section {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.section-heading span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-item {
+  min-height: 64px;
+  padding: 14px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-main {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-main input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+.task-title {
+  color: #1f2937;
+  font-size: 15px;
+
+  overflow-wrap: anywhere;
+}
+
+.task-item.completed .task-title {
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.delete-button {
+  flex-shrink: 0;
+
+  padding: 7px 11px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+
+  background-color: #ffffff;
+  color: #6b7280;
+
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #f9fafb;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+@media (max-width: 600px) {
+  .task-form {
+    flex-direction: column;
+  }
+
+  .task-form button {
+    width: 100%;
+  }
+
+  .task-item {
+    padding: 14px;
+  }
+
+  .section-heading {
+    padding: 16px 14px;
+  }
+
+  .task-title {
+    font-size: 14px;
+  }
+}
