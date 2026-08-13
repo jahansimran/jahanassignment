@@ -12,7 +12,6 @@ export function TaskProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [updatingTaskId, setUpdatingTaskId] = useState(null);
   const [deletingTaskId, setDeletingTaskId] = useState(null);
   const [mutationError, setMutationError] = useState("");
 
@@ -67,42 +66,18 @@ export function TaskProvider({ children }) {
     }
   };
 
-  const handleToggleTask = async (clientId) => {
-    const task = tasks.find(
-      (item) => item.clientId === clientId
+  const handleToggleTask = (clientId) => {
+    setMutationError("");
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.clientId === clientId
+          ? {
+            ...task,
+            completed: !task.completed,
+          }
+          : task
+      )
     );
-
-    if (!task) {
-      return;
-    }
-
-    const newCompletedStatus = !task.completed;
-
-    try {
-      setUpdatingTaskId(clientId);
-      setMutationError("");
-
-      await updateTask(task.id, newCompletedStatus);
-
-      setTasks((currentTasks) =>
-        currentTasks.map((item) =>
-          item.clientId === clientId
-            ? {
-              ...item,
-              completed: newCompletedStatus,
-            }
-            : item
-        )
-      );
-    } catch (error) {
-      console.error("Failed to update task:", error);
-
-      setMutationError(
-        "Unable to update task. Please try again."
-      );
-    } finally {
-      setUpdatingTaskId(null);
-    }
   };
 
   const handleDeleteTask = async (clientId) => {
@@ -149,7 +124,6 @@ export function TaskProvider({ children }) {
     loading,
     error,
     submitting,
-    updatingTaskId,
     deletingTaskId,
     completedCount,
     loadTasks,

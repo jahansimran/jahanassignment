@@ -8,8 +8,7 @@ function Dashboard() {
     tasks,
     loading,
     error,
-    submitting,
-    updatingTaskId,
+    submitting,   
     deletingTaskId,
     completedCount,
     loadTasks,
@@ -73,7 +72,6 @@ function Dashboard() {
             tasks={tasks}
             onToggleTask={handleToggleTask}
             onDeleteTask={handleDeleteTask}
-            // updatingTaskId={updatingTaskId}
             deletingTaskId={deletingTaskId}
           />
         )}
